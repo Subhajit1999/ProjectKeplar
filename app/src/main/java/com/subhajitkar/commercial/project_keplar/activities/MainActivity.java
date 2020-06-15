@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.subhajitkar.commercial.project_keplar.R;
+import com.subhajitkar.commercial.project_keplar.fragments.HomeFragment;
 import com.subhajitkar.commercial.project_keplar.utils.MenuAdapter;
 import com.subhajitkar.commercial.project_keplar.utils.StaticUtils;
 
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         //methods call
         handleNavigationDrawer();
         handleNavigationMenu();
+        defaultNavHome();
     }
 
     private void handleNavigationDrawer(){
@@ -106,5 +108,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void topNavSelectedAction(int clickedPosition){
         Log.d(TAG, "topNavSelectedAction: nav drawer option clicked action");
+        switch(clickedPosition){
+            case 0:
+                defaultNavHome();
+                break;
+            default:
+                getSupportFragmentManager().beginTransaction().remove(new HomeFragment());
+        }
+    }
+
+    private void defaultNavHome(){
+        Log.d(TAG, "defaultNavHome: showing homeFragment by default");
+
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new HomeFragment())
+                .commit();
     }
 }
